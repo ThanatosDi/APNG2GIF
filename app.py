@@ -1,4 +1,5 @@
 import os
+from argparse import ArgumentParser
 
 from apng import APNG
 from PIL import Image
@@ -41,21 +42,25 @@ def deapng(apngfile):
     pngs = list(flat(pngs))
     return pngs
 
-def mRGBA(apngfile):
+def mRGBA(apngfile, output=None):
     pngs = deapng(apngfile)
     img = []
     for image in pngs:
         img.append(gen_frame(image))
     PILimage = img[0]
-    PILimage.save(f'{os.path.splitext(apngfile)[0]}.gif', save_all=True, append_images=img[0:], loop=0, disposal=2)
+    if not output:
+        output = os.path.splitext(apngfile)[0]
+    PILimage.save(f'{output}.gif', save_all=True, append_images=img[0:], loop=0, disposal=2)
     clean(pngs)
 
-def mP(apngfile):
+def mP(apngfile, output=None):
     pngs = deapng(apngfile)
     img = []
     for image in pngs:
         img.append(Image.open(image).copy())
     PILimage = Image.open(pngs[0])
+    if not output:
+        output = os.path.splitext(apngfile)[0]
     PILimage.save(f'{os.path.splitext(apngfile)[0]}.gif', save_all=True, append_images=img[0:], loop=0, transparency=0, disposal=2)
     clean(pngs)
 
@@ -63,10 +68,18 @@ def clean(imglist):
     for img in imglist:
         os.remove(img)
 
+def main(apngfile, output=None):
+    try:
+        if Image.open(apngfile).mode == 'P':
+            mP(apngfile, output)
+        if Image.open(apngfile).mode == 'RGBA':
+            mRGBA(apngfile, output)
+    except Exception as e:
+        print(f'Error : {str(e)}')
 
 if __name__ == "__main__":
-    file = '167385670.png'
-    if Image.open(file).mode == 'P':
-        mP(file)
-    if Image.open(file).mode == 'RGBA':
-        mRGBA(file)
+    parser = ArgumentParser()
+    parser.add_argument("-i", "--input", help="Input APNG file.", dest='input')
+    parser.add_argument("-o", "--output", help="output GIF file", dest="output")
+    args = parser.parse_args()
+    main(args.input, args.output)
