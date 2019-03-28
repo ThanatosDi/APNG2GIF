@@ -12,8 +12,10 @@ def APNGplay(FILE, num:int=0, output=None):
         apng = APNG.open(FILE)
         apng.num_plays = 0
         if not output:
-            output = os.path.splitext(FILE)[0]
-        apng.save(os.path.join(PATH, f'{os.path.basename(output)}_new.png'))
+            output = os.path.basename(f'{os.path.splitext(FILE)[0]}_new{os.path.splitext(FILE)[1]}')
+        if '.png' not in output:
+            output = f'{output}.png'
+        apng.save(os.path.join(PATH, f'{output}'))
     except Exception as e:
         print(f'Error : {str(e)}')
 
