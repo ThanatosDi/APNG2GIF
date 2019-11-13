@@ -73,7 +73,7 @@ def clean(imglist):
     for img in imglist:
         os.remove(img)
 
-def main(apngfile, output=None):
+def apng2gif(apngfile, output=None):
     try:
         if Image.open(apngfile).mode == 'P':
             print('P')
@@ -89,4 +89,4 @@ if __name__ == "__main__":
     parser.add_argument("-i", "--input", help="Input APNG file.", dest='input')
     parser.add_argument("-o", "--output", help="output GIF file", dest="output")
     args = parser.parse_args()
-    main(args.input, args.output)
+    apng2gif(args.input, args.output)
