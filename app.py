@@ -34,6 +34,11 @@ def deapng(apngfile):
     pngs = [] #圖片陣列變數
     apng = APNG.open(apngfile) #開啟 APNG 圖片，用APNG套件開啟
     for i, (png, control) in enumerate(apng.frames):
+        if os.path.exists('images'):
+            if not os.path.isdir('images'):
+                os.mkdir('images')
+        else:
+            os.mkdir('images')
         png.save(f"images/{i}.png") #保存 png 檔
         if FileSize(f'images/{i}.png') < 1024:
             pngs.append(pngs[-2:])
@@ -71,8 +76,10 @@ def clean(imglist):
 def main(apngfile, output=None):
     try:
         if Image.open(apngfile).mode == 'P':
+            print('P')
             mP(apngfile, output)
         if Image.open(apngfile).mode == 'RGBA':
+            print('RGBA')
             mRGBA(apngfile, output)
     except Exception as e:
         print(f'Error : {str(e)}')
