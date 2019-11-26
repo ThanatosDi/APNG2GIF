@@ -11,14 +11,14 @@ APNG（Animated Portable Network Graphics）格式是PNG的點陣圖動畫擴充
 ## 如何使用
 ```shell
 # 安裝必要套件
-pip install -r requirements.txt
+pip install apng2gif
 
 # 顯示幫助清單
-python app.py -h
+apng2gif -h
 
 # 進行檔案轉換，轉換後的 GIF 會與 APNG 在同一目錄中
-python app.py -i 'example.png'
+apng2gif -i 'example.png'
 
 # 進行檔案轉換，轉換後的 GIF 另存為 /tmp/a.gif
-python app.py -i 'example.png' -o '/tmp/a'
+apng2gif -i 'example.png' -o '/tmp/a'
 ```

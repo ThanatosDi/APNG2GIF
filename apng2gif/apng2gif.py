@@ -76,17 +76,8 @@ def clean(imglist):
 def apng2gif(apngfile, output=None):
     try:
         if Image.open(apngfile).mode == 'P':
-            print('P')
             mP(apngfile, output)
         if Image.open(apngfile).mode == 'RGBA':
-            print('RGBA')
             mRGBA(apngfile, output)
     except Exception as e:
         print(f'Error : {str(e)}')
-
-if __name__ == "__main__":
-    parser = ArgumentParser()
-    parser.add_argument("-i", "--input", help="Input APNG file.", dest='input')
-    parser.add_argument("-o", "--output", help="output GIF file", dest="output")
-    args = parser.parse_args()
-    apng2gif(args.input, args.output)
