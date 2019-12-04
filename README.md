@@ -9,16 +9,30 @@ APNG（Animated Portable Network Graphics）格式是PNG的點陣圖動畫擴充
 或者 LINE Store 的貼圖預覽也是使用 APNG
 
 ## 如何使用
-```shell
-# 安裝必要套件
-pip install apng2gif
-
-# 顯示幫助清單
-apng2gif -h
-
-# 進行檔案轉換，轉換後的 GIF 會與執行目錄在同一目錄中
-apng2gif -i 'example.png'
-
-# 進行檔案轉換，轉換後的 GIF 另存為 /tmp/a.gif
-apng2gif -i 'example.png' -o '/tmp/a.gif'
 ```
+# 安裝 Install
+pip install apng2gif
+```
+
+## 使用
+* 指令 CLI
+    ```
+    # 輸出 GIF 至目前工作目錄
+    apng2gif -i 'apng_path'
+
+    # 指定輸出路徑及檔案名稱
+    apng2gif -i 'apng_path' -o 'output_gif_path'
+    
+    # 設定 GIF 播放次數，不包含第一次
+    apng2gif -i 'apng_path' -l 3
+    
+    # 查看所有設定
+    apng2gif -h
+    ```
+* 匯入 import
+    ```
+    from apng2gif import APNG2GIF
+
+    test = APNG2GIF()
+    test.apng2gif(apngfile, loop=0, output=None)
+    ```

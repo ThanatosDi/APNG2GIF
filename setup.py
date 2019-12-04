@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="apng2gif",
-    version="1.0.1",
+    version="1.0.2",
     author="ThanatosDi",
     author_email="ThanatosDi@kttsite.com",
     description="convert apng to gif.",

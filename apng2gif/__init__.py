@@ -65,7 +65,7 @@ class APNG2GIF(object):
         pngs = list(self.flat(pngs))
         return pngs
 
-    def mRGBA(self, apngfile, loop=0, output=None):
+    def mRGBA(self, apngfile, loop, output=None):
         pngs = self.deapng(apngfile)
         img = []
         for image in pngs:
@@ -81,7 +81,7 @@ class APNG2GIF(object):
         PILimage.save(f'{savepath}', save_all=True, append_images=img[0:], loop=loop, disposal=2)
         self.clean()
 
-    def mP(self, apngfile, loop=0, output=None):
+    def mP(self, apngfile, loop, output=None):
         pngs = self.deapng(apngfile)
         img = []
         for image in pngs:
@@ -100,20 +100,21 @@ class APNG2GIF(object):
     def clean(self):
         shutil.rmtree(self.tf)
 
-    def apng2gif(self, apngfile, output=None):
+    def apng2gif(self, apngfile, loop=0, output=None):
         if Image.open(apngfile).mode == 'P':
-            self.mP(apngfile, output=output)
+            self.mP(apngfile, loop=loop, output=output)
         if Image.open(apngfile).mode == 'RGBA':
-            self.mRGBA(apngfile, output=output)
+            self.mRGBA(apngfile, loop=loop, output=output)
 
 def main():
     apng2gif = APNG2GIF()
-    parser = ArgumentParser(prog='apng2gif', description='convert APNG to GIF.')
+    parser = ArgumentParser(prog='apng2gif', description='convert APNG to GIF. version: 1.0.1')
     parser.add_argument("-i", "--input", help="Input APNG file.", dest='input')
+    parser.add_argument("-l", "--loop", help="Set GIF loop time.", dest='loop', default=0, type=int)
     parser.add_argument("-o", "--output", help="output GIF file", dest="output")
     args = parser.parse_args()
     if args.input:
-        apng2gif.apng2gif(args.input, args.output)
+        apng2gif.apng2gif(args.input, loop=args.loop, output=args.output)
     else:
         parser.print_help()
 
