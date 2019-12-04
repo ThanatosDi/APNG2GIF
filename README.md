@@ -16,9 +16,9 @@ pip install apng2gif
 # 顯示幫助清單
 apng2gif -h
 
-# 進行檔案轉換，轉換後的 GIF 會與 APNG 在同一目錄中
+# 進行檔案轉換，轉換後的 GIF 會與執行目錄在同一目錄中
 apng2gif -i 'example.png'
 
 # 進行檔案轉換，轉換後的 GIF 另存為 /tmp/a.gif
-apng2gif -i 'example.png' -o '/tmp/a'
+apng2gif -i 'example.png' -o '/tmp/a.gif'
 ```
